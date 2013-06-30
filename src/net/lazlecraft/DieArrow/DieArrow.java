@@ -10,8 +10,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class DieArrow extends JavaPlugin implements Listener {
 	
+	public int delay;
+	
     public void onEnable() {
+    	getConfig().options().copyDefaults(true);
+    	this.saveConfig();
     	getServer().getPluginManager().registerEvents(this, this);
+    	delay = getConfig().getInt("seconds");
     }
 
     	@EventHandler
@@ -22,7 +27,7 @@ public class DieArrow extends JavaPlugin implements Listener {
     	            public void run() {
     	            	entity.remove();
     	            }
-    	        }.runTaskLater(this, 20L);
+    	        }.runTaskLater(this, 20 * delay);
         	}
     }
 }
